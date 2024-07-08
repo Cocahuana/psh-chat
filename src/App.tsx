@@ -1,7 +1,8 @@
 import "./App.css";
 import { Box, Flex } from "./components/elements";
 import styled from "styled-components";
-
+import ReactChatBanner from "./components/ReactChatBanner";
+import CreateNewChat from "./components/CreateNewChat";
 const ChatsSection = styled.div`
   width: 100%;
   @media (max-width: 480px) {
@@ -49,18 +50,22 @@ function App() {
   return (
     <Container>
       <ChatsSection>
-        <Box>
-          <nav>
-            <ul>
-              <li>
-                <a href={`/contacts/1`}>Your Name</a>
-              </li>
-              <li>
-                <a href={`/contacts/2`}>Your Friend</a>
-              </li>
-            </ul>
-          </nav>
-        </Box>
+        <Flex style={{ flexDirection: "column" }}>
+          <ReactChatBanner />
+          <Box>
+            <nav>
+              <ul>
+                <li>
+                  <a href={`/contacts/1`}>Your Name</a>
+                </li>
+                <li>
+                  <a href={`/contacts/2`}>Your Friend</a>
+                </li>
+              </ul>
+            </nav>
+          </Box>
+          <CreateNewChat />
+        </Flex>
       </ChatsSection>
       <ChattingSection>
         <Box>Detail - Messages -</Box>
