@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import "./App.css";
 import { Box, Flex } from "./components/elements";
 import ReactChatBanner from "./components/ReactChatBanner";
 import CreateNewChat from "./components/CreateNewChat";
+import { ITheme } from "./assets/theme/ITheme";
 
-const ChatsSection = styled.div<{ isChatSelected: boolean }>`
+type ChatsSectionProps = {
+  isChatSelected: boolean;
+  theme: ITheme;
+};
+
+const ChatsSection = styled.div<ChatsSectionProps>`
   width: 100%;
   ${({ isChatSelected }) =>
     isChatSelected &&
@@ -16,7 +22,7 @@ const ChatsSection = styled.div<{ isChatSelected: boolean }>`
   `}
 
   @media (max-width: 480px) {
-    background-color: red;
+    background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
   }
   @media (min-width: 481px) and (max-width: 768px) {
     background-color: green;

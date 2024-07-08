@@ -1,5 +1,5 @@
-// theme.ts
-const theme = {
+import { ITheme } from "./ITheme";
+const theme: ITheme = {
     colors: {
         // gray: {
         //     100: "#E9E9E9",
@@ -15,6 +15,9 @@ const theme = {
         // black: {
         //     400: "#191A1E",
         // },
+        white: {
+            900: "#FFFFFF",
+        },
         primary: '#0070f3',
         secondary: '#1a1a1a',
         tertiary:   "B1B1B1",
