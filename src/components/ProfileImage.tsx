@@ -10,6 +10,7 @@ type ProfileImageProps = {
 const ProfilePicture = styled.img<{ width?: string; height?: string }>`
   width: ${(props) => props.width || "60px"};
   height: ${(props) => props.height || "60px"};
+  border-radius: 50%;
 `;
 
 function ProfileImage(props: ProfileImageProps) {

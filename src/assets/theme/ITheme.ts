@@ -54,6 +54,7 @@ export interface ITheme {
         };
     };
     fontSizes: {
+        ultraSmall: string;
         small: string;
         medium: string;
         large: string;

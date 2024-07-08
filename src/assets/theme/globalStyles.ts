@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
     p {
         margin: 0;
         padding: 0;
-        color: ${({ theme }) => theme.colors.text};
+        color: ${({ theme }) => theme.colors.app.sections.chats.lastMessage};
     }
 
     a {

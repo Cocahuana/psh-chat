@@ -17,25 +17,42 @@ const ChatName = styled.h3<StyledTheme>`
 `;
 
 const LastMessage = styled.p<StyledTheme>`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: ${({ theme }) => theme.colors.app.sections.chats.lastMessage};
 `;
+
 const MessageTime = styled.p<StyledTheme>`
-  color: ${({ theme }) => theme.colors.app.sections.chats.lastMessage};
+  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+  white-space: nowrap;
+  padding-top: 0.2rem;
+`;
+
+const ChatWrapper = styled(Flex)<StyledTheme>`
+  border-bottom: 1px solid
+    ${({ theme }) => theme.colors.app.sections.chats.lastMessage};
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-right: 0.5rem;
 `;
 
 function Chat(props: ChatProps) {
   const { chat } = props;
   return (
-    <Flex>
-      <Flex>
+    <ChatWrapper>
+      <Flex style={{ gap: "1rem" }}>
         <ProfileImage src={chat.photo} alt={`${chat.name} + Profile image`} />
         <Flex style={{ flexDirection: "column" }}>
           <ChatName>{chat.name}</ChatName>
-          <LastMessage>Calc lastMessage</LastMessage>
+          <LastMessage>asasdasda</LastMessage>
         </Flex>
       </Flex>
-      <MessageTime>Calc lastMessage</MessageTime>
-    </Flex>
+      <MessageTime>11:30 AM</MessageTime>
+    </ChatWrapper>
   );
 }
 
