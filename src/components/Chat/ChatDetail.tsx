@@ -6,6 +6,7 @@ import { ITheme } from "../../assets/theme/ITheme";
 import { Flex, ScrollableContainer } from "../elements";
 import ProfileImage from "../ProfileImage";
 import { FaAngleLeft } from "react-icons/fa";
+import ChatKeyboard from "../ChatKeyboard";
 type StyledTheme = {
   theme: ITheme;
 };
@@ -14,6 +15,8 @@ type ChatDetailProps = {
 };
 const ChatDetailContainer = styled.div`
   height: 100%;
+  padding-top: 1rem;
+  padding-bottom: 5rem;
 `;
 const ChatName = styled.h3<StyledTheme>`
   color: ${({ theme }) => theme.colors.app.sections.chatting.chatName};
@@ -82,6 +85,7 @@ function ChatDetail(props: ChatDetailProps) {
           </div>
         ))}
       </ScrollableContainer>
+      <ChatKeyboard />
     </ChatDetailContainer>
   );
 }
