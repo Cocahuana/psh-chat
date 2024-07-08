@@ -48,7 +48,9 @@ const theme: ITheme = {
                     sendBtn:{
                         bg: "#B1B1B1",
                         text: "#7A7A7A",
-                    }
+                    },
+                    header: "#FFFFFF",
+                    chatName: "#191A1E",
                 }
             }
         }

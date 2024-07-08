@@ -49,6 +49,8 @@ export interface ITheme {
                         bg: string;
                         text: string;
                     };
+                    header: string;
+                    chatName: string;
                 };
             };
         };
