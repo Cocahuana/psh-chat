@@ -6,9 +6,9 @@ const theme = {
         //     400: "#B1B1B1",
         //     900: "#7A7A7A",
         // },
-        // red: {
-        //     400: "FF0000",
-        // },
+        red: {
+            400: "#FF0000",
+        },
         // pink: {
         //     400: "#FCEDED",
         // }
@@ -23,7 +23,12 @@ const theme = {
         app: {
             sections: {
                 chats: {
-                    bg: "#191A1E"
+                    bg: "#191A1E",
+                    selected: {
+                        hoverBg: "#3C3D3F",
+                        rightBorder: "#FF0000"
+                    },
+                    createNew: "#B1B1B1",
                 },
                 chatting:{
                     bg: "#E9E9E9",
