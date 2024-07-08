@@ -1,8 +1,5 @@
-import React from "react";
 import { Flex } from "./elements";
-type Props = {};
-
-function CreateNewChat({}: Props) {
+function CreateNewChat() {
   return (
     <Flex>
       <div>X</div>

@@ -1,7 +1,5 @@
 import React from "react";
-import chats from "../../../chats.json";
-import theme from "../../assets/theme/theme";
-import { Flex, Box } from "../elements";
+import { Flex } from "../elements";
 type ChatsProps = {
   children: React.ReactNode;
 };
