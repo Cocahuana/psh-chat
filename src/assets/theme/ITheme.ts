@@ -32,6 +32,8 @@ export interface ITheme {
                         rightBorder: string;
                     };
                     createNew: string;
+                    chatName: string,
+                    lastMessage: string,
                 };
                 chatting: {
                     bg: string;

@@ -5,7 +5,10 @@ import { Box, Flex } from "./components/elements";
 import ReactChatBanner from "./components/ReactChatBanner";
 import CreateNewChat from "./components/CreateNewChat";
 import { ITheme } from "./assets/theme/ITheme";
-
+import Chats from "./components/Chat/Chats";
+import dataFetched from "../chats.json";
+import Chat from "./components/Chat/Chat";
+import { IChat } from "./components/Chat/IChats";
 type ChatsSectionProps = {
   isChatSelected: boolean;
   theme: ITheme;
@@ -80,7 +83,7 @@ const BackButton = styled.button`
 
 function App() {
   const [isChatSelected, setIsChatSelected] = useState(false);
-
+  const chats: IChat[] = dataFetched.chats;
   const handleChatSelect = () => {
     setIsChatSelected(true);
   };
@@ -95,7 +98,12 @@ function App() {
         <Flex style={{ flexDirection: "column" }}>
           <ReactChatBanner />
           <Box>
-            <nav>
+            <Chats>
+              {chats.map((chat: IChat) => (
+                <Chat key={chat.id} chat={chat} />
+              ))}
+            </Chats>
+            {/* <nav>
               <ul>
                 <li>
                   <a href="#/contacts/1" onClick={handleChatSelect}>
@@ -111,7 +119,7 @@ function App() {
                   </a>
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </Box>
           <CreateNewChat />
         </Flex>

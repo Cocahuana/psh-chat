@@ -32,6 +32,8 @@ const theme: ITheme = {
                         rightBorder: "#FF0000"
                     },
                     createNew: "#B1B1B1",
+                    chatName: "#FFFFFF",
+                    lastMessage: "#B1B1B1"
                 },
                 chatting:{
                     bg: "#E9E9E9",
