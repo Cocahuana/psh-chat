@@ -93,26 +93,14 @@ function App() {
           <Box>
             <Chats>
               {chats.map((chat: IChat) => (
-                <Chat key={chat.id} chat={chat} />
+                <Chat
+                  key={chat.id}
+                  chat={chat}
+                  handleChatSelect={handleChatSelect}
+                  lastMessage={chat.messages[chat.messages.length - 1]}
+                />
               ))}
             </Chats>
-            {/* <nav>
-              <ul>
-                <li>
-                  <a href="#/contacts/1" onClick={handleChatSelect}>
-                    Your Name
-                  </a>
-                </li>
-                <li>
-                  <p>my p</p>
-                </li>
-                <li>
-                  <a href="#/contacts/2" onClick={handleChatSelect}>
-                    Your Friend
-                  </a>
-                </li>
-              </ul>
-            </nav> */}
           </Box>
           <CreateNewChat />
         </Flex>

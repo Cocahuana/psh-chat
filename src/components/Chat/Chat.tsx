@@ -1,11 +1,17 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Flex } from "../elements";
 import { IChat } from "./IChats";
 import ProfileImage from "../ProfileImage";
 import styled from "styled-components";
 import { ITheme } from "../../assets/theme/ITheme";
+
 type ChatProps = {
   chat: IChat;
+  handleChatSelect: () => void;
+  lastMessage: {
+    content: string;
+    time: string;
+  };
 };
 
 type StyledTheme = {
@@ -37,20 +43,28 @@ const ChatWrapper = styled(Flex)<StyledTheme>`
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   padding-right: 0.5rem;
+  cursor: pointer;
 `;
 
 function Chat(props: ChatProps) {
-  const { chat } = props;
+  const { chat, handleChatSelect, lastMessage } = props;
+  const navigate = useNavigate();
+
+  const onChatClick = () => {
+    handleChatSelect();
+    navigate(`/chat/${chat.id}`);
+  };
+
   return (
-    <ChatWrapper>
+    <ChatWrapper onClick={onChatClick}>
       <Flex style={{ gap: "1rem" }}>
         <ProfileImage src={chat.photo} alt={`${chat.name} + Profile image`} />
         <Flex style={{ flexDirection: "column" }}>
           <ChatName>{chat.name}</ChatName>
-          <LastMessage>asasdasda</LastMessage>
+          <LastMessage>{lastMessage.content}</LastMessage>
         </Flex>
       </Flex>
-      <MessageTime>11:30 AM</MessageTime>
+      <MessageTime>{lastMessage.time}</MessageTime>
     </ChatWrapper>
   );
 }
