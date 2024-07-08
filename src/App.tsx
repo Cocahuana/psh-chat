@@ -9,6 +9,8 @@ import Chats from "./components/Chat/Chats";
 import dataFetched from "../chats.json";
 import Chat from "./components/Chat/Chat";
 import { IChat } from "./components/Chat/IChats";
+import ChatDetail from "./components/Chat/ChatDetail";
+import { FaAngleLeft } from "react-icons/fa";
 type ChatsSectionProps = {
   isChatSelected: boolean;
   theme: ITheme;
@@ -38,6 +40,7 @@ const ChatsSection = styled.div<ChatsSectionProps>`
 
 const ChattingSection = styled.div<{ isChatSelected: boolean }>`
   width: 100%;
+  heigh: 100%;
   display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
 
   @media (max-width: 480px) {
@@ -106,8 +109,10 @@ function App() {
         </Flex>
       </ChatsSection>
       <ChattingSection isChatSelected={isChatSelected}>
-        <BackButton onClick={handleBackClick}>← Back</BackButton>
-        <Box>Detail - Messages -</Box>
+        <BackButton onClick={handleBackClick} style={{ background: "purple" }}>
+          <FaAngleLeft color="red" />
+        </BackButton>
+        <ChatDetail />
       </ChattingSection>
     </Container>
   );
