@@ -97,6 +97,9 @@ function App() {
                   </a>
                 </li>
                 <li>
+                  <p>my p</p>
+                </li>
+                <li>
                   <a href="#/contacts/2" onClick={handleChatSelect}>
                     Your Friend
                   </a>
