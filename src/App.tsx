@@ -1,10 +1,20 @@
+import React, { useState } from "react";
+import styled from "styled-components";
 import "./App.css";
 import { Box, Flex } from "./components/elements";
-import styled from "styled-components";
 import ReactChatBanner from "./components/ReactChatBanner";
 import CreateNewChat from "./components/CreateNewChat";
-const ChatsSection = styled.div`
+
+const ChatsSection = styled.div<{ isChatSelected: boolean }>`
   width: 100%;
+  ${({ isChatSelected }) =>
+    isChatSelected &&
+    `
+    @media (max-width: 480px) {
+      display: none;
+    }
+  `}
+
   @media (max-width: 480px) {
     background-color: red;
   }
@@ -17,8 +27,10 @@ const ChatsSection = styled.div`
     max-width: 480px;
   }
 `;
-const ChattingSection = styled.div`
+
+const ChattingSection = styled.div<{ isChatSelected: boolean }>`
   width: 100%;
+  display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
 
   @media (max-width: 480px) {
     background-color: red;
@@ -32,6 +44,7 @@ const ChattingSection = styled.div`
     width: 100%;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -46,20 +59,47 @@ const Container = styled.div`
     background-color: blue;
   }
 `;
+
+const BackButton = styled.button`
+  display: none;
+  @media (max-width: 480px) {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+`;
+
 function App() {
+  const [isChatSelected, setIsChatSelected] = useState(false);
+
+  const handleChatSelect = () => {
+    setIsChatSelected(true);
+  };
+
+  const handleBackClick = () => {
+    setIsChatSelected(false);
+  };
+
   return (
     <Container>
-      <ChatsSection>
+      <ChatsSection isChatSelected={isChatSelected}>
         <Flex style={{ flexDirection: "column" }}>
           <ReactChatBanner />
           <Box>
             <nav>
               <ul>
                 <li>
-                  <a href={`/contacts/1`}>Your Name</a>
+                  <a href="#/contacts/1" onClick={handleChatSelect}>
+                    Your Name
+                  </a>
                 </li>
                 <li>
-                  <a href={`/contacts/2`}>Your Friend</a>
+                  <a href="#/contacts/2" onClick={handleChatSelect}>
+                    Your Friend
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -67,7 +107,8 @@ function App() {
           <CreateNewChat />
         </Flex>
       </ChatsSection>
-      <ChattingSection>
+      <ChattingSection isChatSelected={isChatSelected}>
+        <BackButton onClick={handleBackClick}>← Back</BackButton>
         <Box>Detail - Messages -</Box>
       </ChattingSection>
     </Container>
