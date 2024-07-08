@@ -1,8 +1,36 @@
 import "./App.css";
 import { Box, Flex } from "./components/elements";
 import styled from "styled-components";
-// const ChatsSection = styled.div``;
-// const ChattingSection = styled.div``;
+
+const ChatsSection = styled.div`
+  width: 100%;
+  @media (max-width: 480px) {
+    background-color: red;
+  }
+  @media (min-width: 481px) and (max-width: 768px) {
+    background-color: green;
+    max-width: 250px;
+  }
+  @media (min-width: 769px) {
+    background-color: blue;
+    max-width: 480px;
+  }
+`;
+const ChattingSection = styled.div`
+  width: 100%;
+
+  @media (max-width: 480px) {
+    background-color: red;
+  }
+  @media (min-width: 481px) and (max-width: 768px) {
+    background-color: green;
+    width: 100%;
+  }
+  @media (min-width: 769px) {
+    background-color: blue;
+    width: 100%;
+  }
+`;
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -20,7 +48,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Flex>
+      <ChatsSection>
         <Box>
           <nav>
             <ul>
@@ -33,8 +61,10 @@ function App() {
             </ul>
           </nav>
         </Box>
+      </ChatsSection>
+      <ChattingSection>
         <Box>Detail - Messages -</Box>
-      </Flex>
+      </ChattingSection>
     </Container>
   );
 }
