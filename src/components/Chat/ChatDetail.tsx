@@ -12,6 +12,7 @@ function ChatDetail() {
   const chat: IChat | undefined = dataFetched.chats.find(
     (chat) => chat.id === id
   );
+  console.log("Chat: ", chat);
 
   if (!chat) {
     return <div>Chat not found</div>;

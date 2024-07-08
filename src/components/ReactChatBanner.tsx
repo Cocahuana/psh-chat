@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import pshLogo from "../../public/psh_brand.png";
+import pshLogo from "/psh_brand.png";
 import { Flex } from "./elements";
 import { ITheme } from "../assets/theme/ITheme";
 type ReactChatBannerProps = {
