@@ -28,7 +28,6 @@ const LastMessage = styled.p<StyledTheme>`
 const MessageTime = styled.p<StyledTheme>`
   font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
   white-space: nowrap;
-  padding-top: 0.2rem;
 `;
 
 const ChatWrapper = styled(Flex)<StyledTheme>`

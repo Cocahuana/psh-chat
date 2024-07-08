@@ -16,6 +16,8 @@ type ChatsSectionProps = {
 
 const ChatsSection = styled.div<ChatsSectionProps>`
   width: 100%;
+  background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
+
   ${({ isChatSelected }) =>
     isChatSelected &&
     `
@@ -25,14 +27,11 @@ const ChatsSection = styled.div<ChatsSectionProps>`
   `}
 
   @media (max-width: 480px) {
-    background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
   }
   @media (min-width: 481px) and (max-width: 768px) {
-    background-color: green;
-    max-width: 250px;
+    max-width: 300px;
   }
   @media (min-width: 769px) {
-    background-color: blue;
     max-width: 480px;
   }
 `;
@@ -42,14 +41,11 @@ const ChattingSection = styled.div<{ isChatSelected: boolean }>`
   display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
 
   @media (max-width: 480px) {
-    background-color: red;
   }
   @media (min-width: 481px) and (max-width: 768px) {
-    background-color: green;
     width: 100%;
   }
   @media (min-width: 769px) {
-    background-color: blue;
     width: 100%;
   }
 `;
@@ -59,13 +55,10 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   @media (max-width: 480px) {
-    background-color: red;
   }
   @media (min-width: 481px) and (max-width: 768px) {
-    background-color: green;
   }
   @media (min-width: 769px) {
-    background-color: blue;
   }
 `;
 

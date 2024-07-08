@@ -54,10 +54,10 @@ const theme: ITheme = {
         }
     },
     fontSizes: {
-      ultraSmall: '0.7rem',
-      small: '1rem',
-      medium: '1.5rem',
-      large: '2rem',
+      ultraSmall: '0.75rem',
+      small: '0.875rem',
+      medium: '1.1rem',
+      large: '1.5rem',
     },
     spacing: {
       small: '0.5rem',

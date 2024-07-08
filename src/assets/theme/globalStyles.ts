@@ -50,10 +50,10 @@ const GlobalStyle = createGlobalStyle`
             font-size: ${({ theme }) => theme.fontSizes.small};
         }
         @media (min-width: 481px) and (max-width: 768px) {
-              font-size: ${({ theme }) => theme.fontSizes.medium};
+              font-size: ${({ theme }) => theme.fontSizes.small};
         }
         @media (min-width: 769px) {
-              font-size: ${({ theme }) => theme.fontSizes.large};
+              font-size: ${({ theme }) => theme.fontSizes.medium};
         }
     }
 
