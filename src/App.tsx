@@ -10,7 +10,6 @@ import dataFetched from "../chats.json";
 import Chat from "./components/Chat/Chat";
 import { IChat } from "./components/Chat/IChats";
 import ChatDetail from "./components/Chat/ChatDetail";
-import { FaAngleLeft } from "react-icons/fa";
 type ChatsSectionProps = {
   isChatSelected: boolean;
   theme: ITheme;
@@ -38,12 +37,13 @@ const ChatsSection = styled.div<ChatsSectionProps>`
   }
 `;
 
-const ChattingSection = styled.div<{ isChatSelected: boolean }>`
+const ChattingSection = styled.div<ChatsSectionProps>`
   width: 100%;
   heigh: 100%;
   display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
 
   @media (max-width: 480px) {
+    background: ${({ theme }) => theme.colors.app.sections.chatting.bg};
   }
   @media (min-width: 481px) and (max-width: 768px) {
     width: 100%;
@@ -62,18 +62,6 @@ const Container = styled.div`
   @media (min-width: 481px) and (max-width: 768px) {
   }
   @media (min-width: 769px) {
-  }
-`;
-
-const BackButton = styled.button`
-  display: none;
-  @media (max-width: 480px) {
-    display: block;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
   }
 `;
 
@@ -109,10 +97,7 @@ function App() {
         </Flex>
       </ChatsSection>
       <ChattingSection isChatSelected={isChatSelected}>
-        <BackButton onClick={handleBackClick} style={{ background: "purple" }}>
-          <FaAngleLeft color="red" />
-        </BackButton>
-        <ChatDetail />
+        <ChatDetail handleBackClick={handleBackClick} />
       </ChattingSection>
     </Container>
   );
