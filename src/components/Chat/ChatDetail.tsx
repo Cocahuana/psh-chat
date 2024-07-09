@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { IChat } from "./IChats";
 import dataFetched from "../../../chats.json";
 import { ITheme } from "../../assets/theme/ITheme";
@@ -7,6 +7,8 @@ import { Flex, ScrollableContainer } from "../elements";
 import ProfileImage from "../ProfileImage";
 import { FaAngleLeft } from "react-icons/fa";
 import ChatKeyboard from "../ChatKeyboard";
+import Message from "./Message"; // Import the Message component
+
 type StyledTheme = {
   theme: ITheme;
 };
@@ -15,7 +17,6 @@ type ChatDetailProps = {
 };
 const ChatDetailContainer = styled.div`
   height: 100%;
-  padding-top: 1rem;
   padding-bottom: 5rem;
 `;
 const ChatName = styled.h3<StyledTheme>`
@@ -48,6 +49,7 @@ const ChatHeader = styled(Flex)<StyledTheme>`
   padding: 2rem;
   align-items: center;
 `;
+
 function ChatDetail(props: ChatDetailProps) {
   const { id } = useParams<{ id: string }>();
   const { handleBackClick } = props;
@@ -77,13 +79,11 @@ function ChatDetail(props: ChatDetailProps) {
         </Flex>
       </ChatHeader>
       <ScrollableContainer>
-        {chat.messages.map((message, index) => (
-          <div key={index}>
-            <p>
-              <strong>{message.from}</strong>: {message.content}
-            </p>
-          </div>
-        ))}
+        <Flex style={{ flexDirection: "column", gap: "1rem" }}>
+          {chat.messages.map((message, index) => (
+            <Message key={index} message={message} chat={chat} />
+          ))}
+        </Flex>
       </ScrollableContainer>
       <ChatKeyboard />
     </ChatDetailContainer>
