@@ -9,25 +9,54 @@ type StyledTheme = {
 
 const Wrapper = styled(Flex)<StyledTheme>`
   min-height: 2rem;
-  background: red;
-  padding: 1rem;
+  background: ${({ theme }) => theme.colors.white?.[900]};
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   justify-content: space-between;
   position: fixed;
   bottom: 0;
   width: 100%;
+  border-top: 1px solid #e0e0e0;
 `;
 
-const TextArea = styled.textarea`
-  width: 80%;
-  resize: none;
+const TextInputWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  padding: 0.5rem 1rem;
+  max-width: 80%;
 `;
 
-const SendButton = styled.button`
-  width: 20%;
+const TextInput = styled.textarea`
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+`;
+
+const SendButton = styled.button<StyledTheme>`
+  background-color: ${({ theme }) =>
+    theme.colors.app.sections.chatting.sendBtn.bg};
+  color: ${({ theme }) => theme.colors.app.sections.chatting.sendBtn.text};
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  max-height: 2rem;
+  width: 100%;
 `;
 
 type ChatKeyboardProps = {
-  onSend: (messageContent: string) => void; // Function to handle sending a message
+  onSend: (messageContent: string) => void;
 };
 
 function ChatKeyboard(props: ChatKeyboardProps) {
@@ -51,21 +80,27 @@ function ChatKeyboard(props: ChatKeyboardProps) {
   const handleSendClick = () => {
     if (message.trim() !== "") {
       onSend(message.trim());
-      setMessage(""); // Clear textarea after sending message
+      setMessage("");
     }
   };
 
   return (
     <Wrapper>
-      <TextArea
-        placeholder="Type your message..."
-        value={message}
-        onChange={handleMessageChange}
-        onKeyDown={handleKeyDown} // Listen for a key in your keyboard
-      />
-      <SendButton onClick={handleSendClick} name="send">
-        SEND
-      </SendButton>
+      <TextInputWrapper>
+        <TextInput
+          placeholder="Type your message..."
+          value={message}
+          onChange={handleMessageChange}
+          onKeyDown={handleKeyDown}
+        />
+      </TextInputWrapper>
+      <Flex
+        style={{ width: "20%", justifyContent: "center", alignItems: "center" }}
+      >
+        <SendButton onClick={handleSendClick} name="send">
+          SEND
+        </SendButton>
+      </Flex>
     </Wrapper>
   );
 }
