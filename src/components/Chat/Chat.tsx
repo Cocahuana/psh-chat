@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Flex } from "../elements";
-import { IChat } from "./IChats";
+import { IChat } from "../../interfaces/IChats";
 import ProfileImage from "../ProfileImage";
 import styled from "styled-components";
-import { ITheme } from "../../assets/theme/ITheme";
+import { ITheme } from "../../interfaces/ITheme";
 
 type ChatProps = {
   chat: IChat;

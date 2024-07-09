@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { IChat } from "../components/Chat/IChats";
-import dataFetched from "../../chats.json";
+import { IChat } from "../interfaces/IChats";
+import dataFetched from "../assets/chats.json";
+import axios from "axios";
+import { IApiResponse, IUser } from "../interfaces/IPeopleApi";
 interface ChatContextType {
   chats: IChat[];
   addChat: (chat: IChat) => void;
@@ -27,7 +29,7 @@ export const ChatProvider = (props: ChatProviderProps) => {
 
   const fetchNewChat = async () => {
     // Mock API call
-    const newChat = await fetchNewChatFromAPI();
+    const newChat = await fetchUser();
     addChat(newChat);
   };
 
@@ -45,26 +47,34 @@ export const useChats = () => {
   }
   return context;
 };
+const API_URL = "https://randomuser.me/api";
 
-// Mocked API call function
-const fetchNewChatFromAPI = async (): Promise<IChat> => {
-  // Replace with actual API call
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id: "abc11",
-        name: "New Chat User",
-        position: "New Position",
-        photo: "/avatar-4.png",
-        messages: [
-          {
-            from: "New Chat User",
-            time: "11:00 AM",
-            date: "09/07/2024",
-            content: "This is a new message.",
-          },
-        ],
-      });
-    }, 1000);
-  });
+export const fetchUser = async (): Promise<IChat> => {
+  try {
+    const formattedTime = new Date().toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    const response = await axios.get<IApiResponse>(API_URL);
+    const user: IUser = response.data.results[0];
+    const newChat: IChat = {
+      id: user.login.uuid,
+      name: `${user.name.first} ${user.name.last}`,
+      position: "New User",
+      photo: user.picture.large,
+      messages: [
+        {
+          from: `${user.name.first} ${user.name.last}`,
+          time: formattedTime,
+          date: new Date().toLocaleDateString(),
+          content: "Be the First at starting this conversation!",
+        },
+      ],
+    };
+    return newChat;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
 };

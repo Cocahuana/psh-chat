@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { IChat } from "./IChats";
-import dataFetched from "../../../chats.json";
-import { ITheme } from "../../assets/theme/ITheme";
+import { IChat } from "../../interfaces/IChats";
+import dataFetched from "../../assets/chats.json"; // <-- change this for the context
+import { ITheme } from "../../interfaces/ITheme";
 import { Flex } from "../elements";
 import ProfileImage from "../ProfileImage";
 import { FaAngleLeft } from "react-icons/fa";

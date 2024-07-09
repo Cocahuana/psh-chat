@@ -8,7 +8,7 @@ import Chats from "./components/Chat/Chats";
 import Chat from "./components/Chat/Chat";
 import ChatDetail from "./components/Chat/ChatDetail";
 import { useChats } from "./context/ChatContext";
-import { ITheme } from "./assets/theme/ITheme";
+import { ITheme } from "./interfaces/ITheme";
 
 type ChatsSectionProps = {
   isChatSelected: boolean;

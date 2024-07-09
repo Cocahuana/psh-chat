@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { ITheme } from "../../assets/theme/ITheme";
-import { IChat, IMessage } from "./IChats";
+import { ITheme } from "../../interfaces/ITheme";
+import { IChat, IMessage } from "../../interfaces/IChats";
 import ProfileImage from "../ProfileImage";
 import { Flex } from "../elements";
 

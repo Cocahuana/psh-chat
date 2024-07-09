@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ITheme } from "../assets/theme/ITheme";
+import { ITheme } from "../interfaces/ITheme";
 import { Flex } from "./elements";
 type StyledTheme = {
   theme: ITheme;
