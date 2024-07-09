@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { IChat } from "./IChats";
 import dataFetched from "../../../chats.json";
 import { ITheme } from "../../assets/theme/ITheme";
-import { Flex, ScrollableContainer } from "../elements";
+import { Flex } from "../elements";
 import ProfileImage from "../ProfileImage";
 import { FaAngleLeft } from "react-icons/fa";
 import ChatKeyboard from "../ChatKeyboard";
@@ -55,6 +55,11 @@ const ChatHeader = styled(Flex)<StyledTheme>`
   align-items: center;
 `;
 
+const ScrollableChatContainer = styled.div`
+  height: calc(100% - 7rem); // Adjust height to account for header and footer
+  overflow-y: auto;
+`;
+
 function ChatDetail(props: ChatDetailProps) {
   const { id } = useParams<{ id: string }>();
   const { handleBackClick } = props;
@@ -83,13 +88,13 @@ function ChatDetail(props: ChatDetailProps) {
           <Position>{chat.position}</Position>
         </Flex>
       </ChatHeader>
-      <ScrollableContainer>
+      <ScrollableChatContainer>
         <Flex style={{ flexDirection: "column", gap: "1rem" }}>
           {chat.messages.map((message, index) => (
             <Message key={index} message={message} chat={chat} />
           ))}
         </Flex>
-      </ScrollableContainer>
+      </ScrollableChatContainer>
       <ChatKeyboard />
     </ChatDetailContainer>
   );

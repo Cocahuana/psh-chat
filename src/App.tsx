@@ -10,14 +10,17 @@ import dataFetched from "../chats.json";
 import Chat from "./components/Chat/Chat";
 import { IChat } from "./components/Chat/IChats";
 import ChatDetail from "./components/Chat/ChatDetail";
+
 type ChatsSectionProps = {
   isChatSelected: boolean;
   theme: ITheme;
 };
 
 const ChatsSection = styled.div<ChatsSectionProps>`
-  width: 100%;
+  width: 50%;
+  height: 100%;
   background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
+  overflow-y: auto;
 
   ${({ isChatSelected }) =>
     isChatSelected &&
@@ -25,8 +28,8 @@ const ChatsSection = styled.div<ChatsSectionProps>`
     @media (max-width: 480px) {
       display: none;
     }
+      
   `}
-
   @media (max-width: 480px) {
   }
   @media (min-width: 481px) and (max-width: 768px) {
@@ -39,35 +42,27 @@ const ChatsSection = styled.div<ChatsSectionProps>`
 
 const ChattingSection = styled.div<ChatsSectionProps>`
   width: 100%;
-  heigh: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.app.sections.chatting.bg};
   display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
+  overflow-y: auto;
 
   @media (max-width: 480px) {
-    background: ${({ theme }) => theme.colors.app.sections.chatting.bg};
-  }
-  @media (min-width: 481px) and (max-width: 768px) {
     width: 100%;
-  }
-  @media (min-width: 769px) {
-    width: 100%;
+    display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
   }
 `;
 
 const Container = styled.div`
   display: flex;
   width: 100%;
-  min-height: 100vh;
-  @media (max-width: 480px) {
-  }
-  @media (min-width: 481px) and (max-width: 768px) {
-  }
-  @media (min-width: 769px) {
-  }
+  height: 100vh;
 `;
 
 function App() {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const chats: IChat[] = dataFetched.chats;
+
   const handleChatSelect = () => {
     setIsChatSelected(true);
   };
@@ -96,6 +91,7 @@ function App() {
           <CreateNewChat />
         </Flex>
       </ChatsSection>
+
       <ChattingSection isChatSelected={isChatSelected}>
         <ChatDetail handleBackClick={handleBackClick} />
       </ChattingSection>
