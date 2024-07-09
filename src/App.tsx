@@ -32,7 +32,7 @@ const ChatsSection = styled.div<ChatsSectionProps>`
   @media (max-width: 480px) {
   }
   @media (min-width: 481px) and (max-width: 768px) {
-    max-width: 300px;
+    max-width: 330px;
   }
   @media (min-width: 769px) {
     max-width: 480px;
