@@ -1,40 +1,50 @@
+import React from "react";
 import styled from "styled-components";
 import { ITheme } from "../../assets/theme/ITheme";
 import { IChat, IMessage } from "./IChats";
 import ProfileImage from "../ProfileImage";
 import { Flex } from "../elements";
+
 type StyledTheme = {
   theme: ITheme;
   from?: string;
 };
+
 const MessageWrapper = styled.div<StyledTheme>`
   display: flex;
-  justify-content: ${({ from, theme }) =>
-    from === "Me" ? "flex-end" : "flex-start"};
+  justify-content: ${({ from }) => (from === "Me" ? "flex-end" : "flex-start")};
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 `;
 
-const MessageBubbleThey = styled(Flex)<StyledTheme>`
+const MessageBubble = styled.div<StyledTheme>`
   background-color: ${({ from, theme }) =>
     from === "Me" ? theme.colors.primary : "#fff"};
-  color: ${({ from, theme }) => (from === "Me" ? "#fff" : "#000")};
+  color: ${({ from }) => (from === "Me" ? "#fff" : "#000")};
   border-radius: 20px;
   padding: 10px;
-`;
-const MessageBubbleUs = styled(Flex)<StyledTheme>`
-  background-color: ${({ from, theme }) =>
-    from === "Me" ? theme.colors.primary : "#fff"};
-  color: ${({ from, theme }) => (from === "Me" ? "#fff" : "#000")};
-  border-radius: 20px;
-  padding: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 const MessageTime = styled.p<StyledTheme>`
   font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
   white-space: nowrap;
-  padding: ${({ from, theme }) =>
-    from === "Me" ? "0 0 0 0.5rem" : "0 0.5rem 0 0 "};
+  padding: ${({ from }) => (from === "Me" ? "0 0 0 0.5rem" : "0 0.5rem 0 0")};
+`;
+
+const HyperLink = styled.a<StyledTheme>`
+  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+  white-space: pre-wrap;
+  color: blue;
+  text-decoration: underline;
+`;
+
+const MessageContent = styled.span<StyledTheme>`
+  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+  white-space: pre-wrap;
 `;
 
 type MessageProps = {
@@ -42,9 +52,31 @@ type MessageProps = {
   chat: IChat;
 };
 
+const highlightLinks = (text: string) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      return (
+        <HyperLink
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {part}
+        </HyperLink>
+      );
+    }
+    return <React.Fragment key={index}>{part}</React.Fragment>;
+  });
+};
+
 const Message = (props: MessageProps) => {
   const { message, chat } = props;
   const isMe = message.from === "Me";
+
   return (
     <MessageWrapper from={message.from}>
       <Flex
@@ -74,15 +106,11 @@ const Message = (props: MessageProps) => {
             src={isMe ? "/avatar-4.png" : chat.photo}
             alt={`${chat.name}`}
           />
-          {isMe ? (
-            <MessageBubbleUs from={message.from}>
-              {message.content}
-            </MessageBubbleUs>
-          ) : (
-            <MessageBubbleThey from={message.from}>
-              {message.content}
-            </MessageBubbleThey>
-          )}
+          <MessageBubble from={message.from}>
+            <MessageContent from={message.from}>
+              {highlightLinks(message.content)}
+            </MessageContent>
+          </MessageBubble>
         </Flex>
       </Flex>
     </MessageWrapper>

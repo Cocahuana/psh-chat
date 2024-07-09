@@ -12,13 +12,16 @@ import Message from "./Message"; // Import the Message component
 type StyledTheme = {
   theme: ITheme;
 };
+
 type ChatDetailProps = {
   handleBackClick: () => void;
 };
+
 const ChatDetailContainer = styled.div`
   height: 100%;
   padding-bottom: 5rem;
 `;
+
 const ChatName = styled.h3<StyledTheme>`
   color: ${({ theme }) => theme.colors.app.sections.chatting.chatName};
   font-size: ${({ theme }) => theme.fontSizes.large};
@@ -29,6 +32,7 @@ const Position = styled.p<StyledTheme>`
   font-size: ${({ theme }) => theme.fontSizes.medium};
   font-weight: 600;
 `;
+
 const BackButton = styled.button`
   display: none;
   @media (max-width: 480px) {
@@ -43,6 +47,7 @@ const BackButton = styled.button`
     align-items: center;
   }
 `;
+
 const ChatHeader = styled(Flex)<StyledTheme>`
   gap: 1rem;
   background-color: ${({ theme }) => theme.colors.app.sections.chatting.header};
