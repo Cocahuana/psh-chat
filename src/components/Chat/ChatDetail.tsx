@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { IChat } from "../../interfaces/IChats";
-import dataFetched from "../../assets/chats.json"; // <-- change this for the context
+import { useChats } from "../../context/ChatContext";
 import { ITheme } from "../../interfaces/ITheme";
 import { Flex } from "../elements";
 import ProfileImage from "../ProfileImage";
@@ -63,9 +63,9 @@ const ScrollableChatContainer = styled.div`
 function ChatDetail(props: ChatDetailProps) {
   const { id } = useParams<{ id: string }>();
   const { handleBackClick } = props;
-  const chat: IChat | undefined = dataFetched.chats.find(
-    (chat) => chat.id === id
-  );
+  const { chats } = useChats();
+
+  const chat: IChat | undefined = chats.find((chat: IChat) => chat.id === id);
 
   if (!chat) {
     return <div>Sé el primero en iniciar una conversación!</div>;
@@ -81,7 +81,7 @@ function ChatDetail(props: ChatDetailProps) {
           width="5rem"
           height="5rem"
           src={chat.photo}
-          alt={`${chat.name} + Profile image`}
+          alt={`${chat.name} Profile image`}
         />
         <Flex style={{ flexDirection: "column" }}>
           <ChatName>{chat.name}</ChatName>
