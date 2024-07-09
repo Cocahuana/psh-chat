@@ -14,7 +14,7 @@ type StyledTheme = {
 };
 
 type ChatDetailProps = {
-  handleBackClick: () => void;
+  handleBackClick?: () => void;
 };
 
 const ChatDetailContainer = styled.div`
