@@ -12,10 +12,12 @@ type ChatProps = {
     content: string;
     time: string;
   };
+  isChatSelected: boolean;
 };
 
 type StyledTheme = {
   theme: ITheme;
+  isChatSelected?: boolean;
 };
 
 const ChatName = styled.h3<StyledTheme>`
@@ -44,10 +46,22 @@ const ChatWrapper = styled(Flex)<StyledTheme>`
   padding-bottom: 1.5rem;
   padding-right: 0.5rem;
   cursor: pointer;
+  ${({ isChatSelected, theme }) =>
+    isChatSelected &&
+    `border-right: 3px solid ${theme.colors.app.sections.chats.selected.rightBorder};
+    background-color: ${theme.colors.app.sections.chats.selected.hoverBg};`}
+
+  &:hover {
+    background-color: ${({ theme }) =>
+      theme.colors.app.sections.chats.selected.hoverBg};
+    ${({ isChatSelected, theme }) =>
+      isChatSelected &&
+      `border-right: 3px solid ${theme.colors.app.sections.chats.selected.rightBorder};`}
+  }
 `;
 
 function Chat(props: ChatProps) {
-  const { chat, handleChatSelect, lastMessage } = props;
+  const { chat, handleChatSelect, lastMessage, isChatSelected } = props;
   const navigate = useNavigate();
 
   const onChatClick = () => {
@@ -56,7 +70,7 @@ function Chat(props: ChatProps) {
   };
 
   return (
-    <ChatWrapper onClick={onChatClick}>
+    <ChatWrapper isChatSelected={isChatSelected} onClick={onChatClick}>
       <Flex style={{ gap: "1rem" }}>
         <ProfileImage src={chat.photo} alt={`${chat.name} + Profile image`} />
         <Flex style={{ flexDirection: "column" }}>

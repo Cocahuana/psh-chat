@@ -28,8 +28,8 @@ const ChatsSection = styled.div<ChatsSectionProps>`
     @media (max-width: 480px) {
       display: none;
     }
-      
   `}
+
   @media (max-width: 480px) {
   }
   @media (min-width: 481px) and (max-width: 768px) {
@@ -61,14 +61,17 @@ const Container = styled.div`
 
 function App() {
   const [isChatSelected, setIsChatSelected] = useState(false);
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const chats: IChat[] = dataFetched.chats;
 
-  const handleChatSelect = () => {
+  const handleChatSelect = (chatId: string) => {
     setIsChatSelected(true);
+    setSelectedChatId(chatId);
   };
 
   const handleBackClick = () => {
     setIsChatSelected(false);
+    setSelectedChatId(null);
   };
 
   return (
@@ -82,8 +85,9 @@ function App() {
                 <Chat
                   key={chat.id}
                   chat={chat}
-                  handleChatSelect={handleChatSelect}
+                  handleChatSelect={() => handleChatSelect(chat.id)}
                   lastMessage={chat.messages[chat.messages.length - 1]}
+                  isChatSelected={selectedChatId === chat.id}
                 />
               ))}
             </Chats>
