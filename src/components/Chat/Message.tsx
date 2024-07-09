@@ -29,7 +29,6 @@ const MessageBubble = styled.div<StyledTheme>`
       : theme.colors.app.sections.chatting.they.text};
   border-radius: 0.5rem;
   padding: 10px;
-  max-width: 70%;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -74,6 +73,11 @@ const MessageContent = styled.span<StyledTheme>`
   white-space: pre-wrap;
 `;
 
+const MessageAndTime = styled(Flex)`
+  flex-direction: column;
+  max-width: 70%;
+`;
+
 type MessageProps = {
   message: IMessage;
   chat: IChat;
@@ -115,15 +119,9 @@ const Message = (props: MessageProps) => {
       >
         <Flex
           style={{
-            justifyContent: isMe ? "flex-start" : "flex-end",
-          }}
-        >
-          <MessageTime from={message.from}>{message.time}</MessageTime>
-        </Flex>
-        <Flex
-          style={{
             flexDirection: isMe ? "row-reverse" : "row",
             justifyContent: isMe ? "flex-end" : "flex-start",
+            alignItems: "center",
             gap: "1rem",
           }}
         >
@@ -133,11 +131,16 @@ const Message = (props: MessageProps) => {
             src={isMe ? "/avatar-4.png" : chat.photo}
             alt={`${chat.name}`}
           />
-          <MessageBubble from={message.from}>
-            <MessageContent from={message.from}>
-              {highlightLinks(message.content)}
-            </MessageContent>
-          </MessageBubble>
+          <MessageAndTime>
+            <Flex style={{ justifyContent: isMe ? "flex-start" : "flex-end" }}>
+              <MessageTime from={message.from}>{message.time}</MessageTime>
+            </Flex>
+            <MessageBubble from={message.from}>
+              <MessageContent from={message.from}>
+                {highlightLinks(message.content)}
+              </MessageContent>
+            </MessageBubble>
+          </MessageAndTime>
         </Flex>
       </Flex>
     </MessageWrapper>
