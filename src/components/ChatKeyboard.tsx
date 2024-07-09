@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { ITheme } from "../assets/theme/ITheme";
 import { Flex } from "./elements";
@@ -6,10 +5,10 @@ type StyledTheme = {
   theme: ITheme;
 };
 
-const ChatName = styled.h3<StyledTheme>`
-  color: ${({ theme }) => theme.colors.app.sections.chatting.chatName};
-  font-size: ${({ theme }) => theme.fontSizes.large};
-`;
+// const ChatName = styled.h3<StyledTheme>`
+//   color: ${({ theme }) => theme.colors.app.sections.chatting.chatName};
+//   font-size: ${({ theme }) => theme.fontSizes.large};
+// `;
 
 const Wrapper = styled(Flex)<StyledTheme>`
   min-height: 2rem;
