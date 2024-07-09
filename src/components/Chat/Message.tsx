@@ -68,8 +68,10 @@ const HyperLink = styled.a<StyledTheme>`
   text-decoration: underline;
 `;
 
-const MessageContent = styled.span<StyledTheme>`
+const MessageContent = styled.p<StyledTheme>`
   font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
 `;
 

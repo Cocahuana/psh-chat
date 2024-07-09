@@ -1,6 +1,7 @@
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { IChat } from "../../interfaces/IChats";
+import { IChat, IMessage } from "../../interfaces/IChats";
 import { useChats } from "../../context/ChatContext";
 import { ITheme } from "../../interfaces/ITheme";
 import { Flex } from "../elements";
@@ -63,12 +64,41 @@ const ScrollableChatContainer = styled.div`
 function ChatDetail(props: ChatDetailProps) {
   const { id } = useParams<{ id: string }>();
   const { handleBackClick } = props;
-  const { chats } = useChats();
+  const { chats, addMessageToChat } = useChats();
+  const [scrollToBottom, setScrollToBottom] = useState(true); // State to trigger scroll to bottom
+  const chatContainerRef = useRef<HTMLDivElement>(null); // Ref to the chat container
 
   const chat: IChat | undefined = chats.find((chat: IChat) => chat.id === id);
 
+  const handleSendMessage = (messageContent: string) => {
+    const formattedTime = new Date().toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    const newMessage: IMessage = {
+      from: "Me", // <-- it should be a uuid xD
+      time: formattedTime,
+      date: new Date().toLocaleDateString(),
+      content: messageContent,
+    };
+    if (id) {
+      addMessageToChat(id, newMessage);
+      setScrollToBottom(true); // Set state to true to trigger scroll to bottom
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to bottom when scrollToBottom state is true
+    if (scrollToBottom && chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+      setScrollToBottom(false); // Reset state after scrolling
+    }
+  }, [chats, scrollToBottom]);
+
   if (!chat) {
-    return <div>Sé el primero en iniciar una conversación!</div>;
+    return <div>Be the first to start this conversation!</div>;
   }
 
   return (
@@ -88,14 +118,14 @@ function ChatDetail(props: ChatDetailProps) {
           <Position>{chat.position}</Position>
         </Flex>
       </ChatHeader>
-      <ScrollableChatContainer>
+      <ScrollableChatContainer ref={chatContainerRef}>
         <Flex style={{ flexDirection: "column", gap: "1rem" }}>
           {chat.messages.map((message, index) => (
             <Message key={index} message={message} chat={chat} />
           ))}
         </Flex>
       </ScrollableChatContainer>
-      <ChatKeyboard />
+      <ChatKeyboard onSend={handleSendMessage} />
     </ChatDetailContainer>
   );
 }

@@ -1,11 +1,13 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { IChat } from "../interfaces/IChats";
+import { IChat, IMessage } from "../interfaces/IChats";
 import dataFetched from "../assets/chats.json";
 import axios from "axios";
 import { IApiResponse, IUser } from "../interfaces/IPeopleApi";
+
 interface ChatContextType {
   chats: IChat[];
   addChat: (chat: IChat) => void;
+  addMessageToChat: (chatId: string, message: IMessage) => void; // New method
   fetchNewChat: () => void;
 }
 
@@ -20,61 +22,69 @@ export const ChatProvider = (props: ChatProviderProps) => {
   const [chats, setChats] = useState<IChat[]>([]);
 
   useEffect(() => {
-    setChats(dataFetched.chats);
+    setChats(dataFetched.chats); // Initialize with mock data or empty array
   }, []);
 
   const addChat = (chat: IChat) => {
     setChats((prevChats) => [...prevChats, chat]);
   };
 
+  const addMessageToChat = (chatId: string, message: IMessage) => {
+    setChats((prevChats) =>
+      prevChats.map((chat) =>
+        chat.id === chatId
+          ? { ...chat, messages: [...chat.messages, message] }
+          : chat
+      )
+    );
+  };
+
   const fetchNewChat = async () => {
-    // Mock API call
-    const newChat = await fetchUser();
-    addChat(newChat);
+    try {
+      const response = await axios.get<IApiResponse>(
+        "https://randomuser.me/api"
+      );
+      const user: IUser = response.data.results[0];
+      const newChat: IChat = {
+        id: user.login.uuid,
+        name: `${user.name.first} ${user.name.last}`,
+        position: "New User",
+        photo: user.picture.large,
+        messages: [
+          {
+            from: `${user.name.first} ${user.name.last}`,
+            time: new Date().toLocaleTimeString([], {
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            }),
+            date: new Date().toLocaleDateString(),
+            content: "Be the first to start this conversation!",
+          },
+        ],
+      };
+      addChat(newChat);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const contextValue: ChatContextType = {
+    chats,
+    addChat,
+    addMessageToChat,
+    fetchNewChat,
   };
 
   return (
-    <ChatContext.Provider value={{ chats, addChat, fetchNewChat }}>
-      {children}
-    </ChatContext.Provider>
+    <ChatContext.Provider value={contextValue}>{children}</ChatContext.Provider>
   );
 };
 
 export const useChats = () => {
   const context = useContext(ChatContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useChats must be used within a ChatProvider");
   }
   return context;
-};
-const API_URL = "https://randomuser.me/api";
-
-export const fetchUser = async (): Promise<IChat> => {
-  try {
-    const formattedTime = new Date().toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-    const response = await axios.get<IApiResponse>(API_URL);
-    const user: IUser = response.data.results[0];
-    const newChat: IChat = {
-      id: user.login.uuid,
-      name: `${user.name.first} ${user.name.last}`,
-      position: "New User",
-      photo: user.picture.large,
-      messages: [
-        {
-          from: `${user.name.first} ${user.name.last}`,
-          time: formattedTime,
-          date: new Date().toLocaleDateString(),
-          content: "Be the First at starting this conversation!",
-        },
-      ],
-    };
-    return newChat;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw error;
-  }
 };
