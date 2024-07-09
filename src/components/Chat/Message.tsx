@@ -15,18 +15,45 @@ const MessageWrapper = styled.div<StyledTheme>`
   justify-content: ${({ from }) => (from === "Me" ? "flex-end" : "flex-start")};
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  margin-bottom: 1rem; // Add spacing between messages
 `;
 
 const MessageBubble = styled.div<StyledTheme>`
   background-color: ${({ from, theme }) =>
-    from === "Me" ? theme.colors.primary : "#fff"};
-  color: ${({ from }) => (from === "Me" ? "#fff" : "#000")};
-  border-radius: 20px;
+    from === "Me"
+      ? theme.colors.app.sections.chatting.me.bg
+      : theme.colors.app.sections.chatting.they.bg};
+  color: ${({ from, theme }) =>
+    from === "Me"
+      ? theme.colors.app.sections.chatting.me.text
+      : theme.colors.app.sections.chatting.they.text};
+  border-radius: 0.5rem;
   padding: 10px;
   max-width: 70%;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  position: relative; // For arrow positioning
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.5);
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0; // Align arrow with the top of the bubble
+    ${({ from }) =>
+      from === "Me"
+        ? "right: -1rem"
+        : "left: -0.9rem"}; // Adjust arrow position
+
+    bottom: auto;
+    width: 0;
+    height: 0;
+    border: 1.5rem solid transparent;
+
+    border-top-color: ${({ from, theme }) =>
+      from === "Me"
+        ? theme.colors.app.sections.chatting.me.bg
+        : theme.colors.app.sections.chatting.they.bg}; // Arrow color
+  }
 `;
 
 const MessageTime = styled.p<StyledTheme>`

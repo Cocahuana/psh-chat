@@ -7,7 +7,7 @@ import { Flex, ScrollableContainer } from "../elements";
 import ProfileImage from "../ProfileImage";
 import { FaAngleLeft } from "react-icons/fa";
 import ChatKeyboard from "../ChatKeyboard";
-import Message from "./Message"; // Import the Message component
+import Message from "./Message";
 
 type StyledTheme = {
   theme: ITheme;
