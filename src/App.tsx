@@ -17,7 +17,7 @@ type ChatsSectionProps = {
 };
 
 const ChatsSection = styled.div<ChatsSectionProps>`
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
   overflow-y: auto;
