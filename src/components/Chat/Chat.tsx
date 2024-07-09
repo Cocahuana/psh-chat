@@ -37,7 +37,7 @@ const MessageTime = styled.p<StyledTheme>`
 `;
 
 const ChatWrapper = styled(Flex)<StyledTheme>`
-  border-bottom: 1px solid
+  border-bottom: 2px solid
     ${({ theme }) => theme.colors.app.sections.chats.lastMessage};
   padding-left: 1.5rem;
   padding-top: 1.5rem;

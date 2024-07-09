@@ -13,11 +13,6 @@ const GlobalStyle = createGlobalStyle`
         line-height: 1.5;
         font-weight: 400;
 
-        color-scheme: light dark;
-        
-        color: rgba(0, 0, 0, 0.88);
-        background-color: #fefefe;
-
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
