@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { IChat, IMessage } from "../../interfaces/IChats";
@@ -20,7 +20,6 @@ type ChatDetailProps = {
 
 const ChatDetailContainer = styled.div`
   height: 100%;
-  padding-bottom: 5rem;
 `;
 
 const ChatName = styled.h3<StyledTheme>`
@@ -54,9 +53,14 @@ const ChatHeader = styled(Flex)<StyledTheme>`
   background-color: ${({ theme }) => theme.colors.app.sections.chatting.header};
   padding: 2rem;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const ScrollableChatContainer = styled.div`
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
   height: calc(100% - 7rem); // Adjust height to account for header and footer
   overflow-y: auto;
 `;

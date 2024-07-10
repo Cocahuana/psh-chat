@@ -1,3 +1,4 @@
+//app.tsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import "./App.css";
@@ -16,8 +17,7 @@ type ChatsSectionProps = {
 };
 
 const ChatsSection = styled.div<ChatsSectionProps>`
-  width: 100%;
-  height: 100%;
+  flex: 1;
   background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
   overflow-y: auto;
 
@@ -34,8 +34,7 @@ const ChatsSection = styled.div<ChatsSectionProps>`
 `;
 
 const ChattingSection = styled.div<ChatsSectionProps>`
-  width: 100%;
-  height: 100%;
+  flex: 1;
   background-color: ${({ theme }) => theme.colors.app.sections.chatting.bg};
   display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
   overflow-y: auto;
@@ -64,6 +63,7 @@ const BackgroundColor = styled.div`
   background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
   display: flex;
   height: 100vh;
+  overflow-y: hidden;
 `;
 
 const App: React.FC = () => {

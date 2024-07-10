@@ -69,10 +69,19 @@ const HyperLink = styled.a<StyledTheme>`
 `;
 
 const MessageContent = styled.p<StyledTheme>`
-  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+  @media (min-width: 481px) and (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
+  @media (min-width: 769px) and (max-width: 1366px) {
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+  }
+  @media (min-width: 1367px) {
+    font-size: ${({ theme }) => theme.fontSizes.large};
+  }
 `;
 
 const MessageAndTime = styled(Flex)`
