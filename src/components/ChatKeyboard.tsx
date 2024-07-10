@@ -14,14 +14,14 @@ const Wrapper = styled(Flex)<StyledTheme>`
   padding-bottom: 1rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  justify-content: space-between;
-  position: fixed;
+  gap: 1rem;
+  position: sticky;
   bottom: 0;
-  width: 100%;
   border-top: 1px solid #e0e0e0;
+  max-width: 100%;
 `;
 
-const TextInputWrapper = styled.div`
+const TextInputWrapper = styled.div<StyledTheme>`
   flex: 1;
   display: flex;
   align-items: center;
@@ -29,30 +29,64 @@ const TextInputWrapper = styled.div`
   background: white;
   border: 1px solid #e0e0e0;
   padding: 0.5rem 1rem;
-  max-width: 80%;
+  background: ${({ theme }) => theme.colors.app.sections.chatting.sendBtn.bg};
+  @media (max-width: 480px) {
+    min-width: 70%;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    min-width: 80%;
+  }
+
+  @media (min-width: 767px) {
+    min-width: 75%;
+  }
+  @media (min-width: 1367px) {
+    min-width: 75%;
+  }
 `;
 
-const TextInput = styled.textarea`
+const TextInput = styled.input<StyledTheme>`
   flex: 1;
   border: none;
   outline: none;
   font-size: 1rem;
-  margin-right: 0.5rem;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.app.sections.chatting.sendBtn.text};
+
+  ::placeholder {
+    color: red;
+    font-weight: bold;
+  }
 `;
 
 const SendButton = styled.button<StyledTheme>`
   background-color: ${({ theme }) =>
     theme.colors.app.sections.chatting.sendBtn.bg};
   color: ${({ theme }) => theme.colors.app.sections.chatting.sendBtn.text};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
   border: none;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   cursor: pointer;
-  margin-left: 0.5rem;
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.small};
-  max-height: 2rem;
+  height: 100%;
   width: 100%;
+  letter-spacing: 0.1rem;
+  @media (max-width: 480px) {
+    max-width: 20%;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    max-width: 20%;
+  }
+  @media (min-width: 767px) {
+    max-width: 20%;
+  }
+  @media (min-width: 1367px) {
+    max-width: 10%;
+  }
 `;
 
 type ChatKeyboardProps = {
@@ -63,13 +97,11 @@ function ChatKeyboard(props: ChatKeyboardProps) {
   const { onSend } = props;
   const [message, setMessage] = useState<string>("");
 
-  const handleMessageChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const pressedEnter = event.key === "Enter" && !event.shiftKey;
     if (pressedEnter) {
       event.preventDefault();
@@ -88,19 +120,16 @@ function ChatKeyboard(props: ChatKeyboardProps) {
     <Wrapper>
       <TextInputWrapper>
         <TextInput
+          type="text"
           placeholder="Type your message..."
           value={message}
           onChange={handleMessageChange}
           onKeyDown={handleKeyDown}
         />
       </TextInputWrapper>
-      <Flex
-        style={{ width: "20%", justifyContent: "center", alignItems: "center" }}
-      >
-        <SendButton onClick={handleSendClick} name="send">
-          SEND
-        </SendButton>
-      </Flex>
+      <SendButton onClick={handleSendClick} name="send">
+        SEND
+      </SendButton>
     </Wrapper>
   );
 }

@@ -24,18 +24,12 @@ const ChatsSection = styled.div<ChatsSectionProps>`
   ${({ isChatSelected }) =>
     isChatSelected &&
     `
-    @media (max-width: 480px) {
+    @media (max-width: 767px) {
       display: none;
     }
   `}
-
-  @media (max-width: 480px) {
-  }
-  @media (min-width: 481px) and (max-width: 768px) {
-    max-width: 330px;
-  }
   @media (min-width: 769px) {
-    max-width: 480px;
+    max-width: 40%;
   }
 `;
 
@@ -46,15 +40,29 @@ const ChattingSection = styled.div<ChatsSectionProps>`
   display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
   overflow-y: auto;
 
-  @media (max-width: 480px) {
-    width: 100%;
+  @media (max-width: 767px) {
+    max-width: 100%;
     display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
+  }
+
+  @media (min-width: 769px) {
+    max-width: 60%;
   }
 `;
 
 const Container = styled.div`
   display: flex;
+  height: 100vh;
   width: 100%;
+  @media (min-width: 1367px) {
+    max-width: 1367px;
+    margin: 0 auto;
+  }
+`;
+
+const BackgroundColor = styled.div`
+  background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
+  display: flex;
   height: 100vh;
 `;
 
@@ -74,31 +82,33 @@ const App: React.FC = () => {
   };
 
   return (
-    <Container>
-      <ChatsSection isChatSelected={isChatSelected}>
-        <Flex style={{ flexDirection: "column" }}>
-          <ReactChatBanner />
-          <Box>
-            <Chats>
-              {chats.map((chat) => (
-                <Chat
-                  key={chat.id}
-                  chat={chat}
-                  handleChatSelect={() => handleChatSelect(chat.id)}
-                  lastMessage={chat.messages[chat.messages.length - 1]}
-                  isChatSelected={selectedChatId === chat.id}
-                />
-              ))}
-            </Chats>
-          </Box>
-          <CreateNewChat onCreate={fetchNewChat} />
-        </Flex>
-      </ChatsSection>
+    <BackgroundColor>
+      <Container>
+        <ChatsSection isChatSelected={isChatSelected}>
+          <Flex style={{ flexDirection: "column" }}>
+            <ReactChatBanner />
+            <Box>
+              <Chats>
+                {chats.map((chat) => (
+                  <Chat
+                    key={chat.id}
+                    chat={chat}
+                    handleChatSelect={() => handleChatSelect(chat.id)}
+                    lastMessage={chat.messages[chat.messages.length - 1]}
+                    isChatSelected={selectedChatId === chat.id}
+                  />
+                ))}
+              </Chats>
+            </Box>
+            <CreateNewChat onCreate={fetchNewChat} />
+          </Flex>
+        </ChatsSection>
 
-      <ChattingSection isChatSelected={isChatSelected}>
-        <ChatDetail handleBackClick={handleBackClick} />
-      </ChattingSection>
-    </Container>
+        <ChattingSection isChatSelected={isChatSelected}>
+          <ChatDetail handleBackClick={handleBackClick} />
+        </ChattingSection>
+      </Container>
+    </BackgroundColor>
   );
 };
 

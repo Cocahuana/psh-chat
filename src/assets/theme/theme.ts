@@ -46,7 +46,7 @@ const theme: ITheme = {
                         text: "#B1B1B1"
                     },
                     sendBtn:{
-                        bg: "#B1B1B1",
+                        bg: "#E9E9E9",
                         text: "#7A7A7A",
                     },
                     header: "#FFFFFF",
