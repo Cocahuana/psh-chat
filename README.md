@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+# PSH Chat
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PSH Chat is a modern web application for real-time messaging built with React, TypeScript, and Firebase. This project uses Vite for development and build tooling, along with styled-components for styling.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+Ensure you are using Node.js version 18.18.2 to run this project correctly. You can manage Node.js versions using [NVM](https://github.com/nvm-sh/nvm).
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+To switch to the required Node.js version:
+
+```bash
+nvm use 18.18.2
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+If you do not have this version installed, install and switch to it by running:
+
+```bash
+nvm install 18.18.2
+nvm use 18.18.2
+```
+
+Clone and Install Dependencies
+Clone the repository and install the necessary dependencies:
+
+```bash
+git clone https://github.com/Cocahuana/psh-chat.git
+cd psh-chat
+npm install
+```
+
+## Running the Project
+
+Development Server
+To start the development server:
+
+```bash
+npm run dev
+```
+
+## Production Build
+
+To build the application for production:
+
+```bash
+npm run build
+```
