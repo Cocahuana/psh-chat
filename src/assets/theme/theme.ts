@@ -1,20 +1,20 @@
 import { ITheme } from "../../interfaces/ITheme";
 const theme: ITheme = {
     colors: {
-        // gray: {
-        //     100: "#E9E9E9",
-        //     400: "#B1B1B1",
-        //     900: "#7A7A7A",
-        // },
+        gray: {
+            100: "#E9E9E9",
+            400: "#B1B1B1",
+            900: "#7A7A7A",
+        },
         red: {
             400: "#FF0000",
         },
-        // pink: {
-        //     400: "#FCEDED",
-        // }
-        // black: {
-        //     400: "#191A1E",
-        // },
+        pink: {
+            400: "#FCEDED",
+        },
+        black: {
+            400: "#191A1E",
+        },
         white: {
             900: "#FFFFFF",
         },
