@@ -64,8 +64,21 @@ const MessageTime = styled.p<StyledTheme>`
 const HyperLink = styled.a<StyledTheme>`
   font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
   white-space: pre-wrap;
-  color: blue;
+  color: ${({ theme }) => theme.colors.app.sections.chatting.me.text};
+  font-weight: bold;
   text-decoration: underline;
+  @media (min-width: 481px) and (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
+  @media (min-width: 769px) and (max-width: 1366px) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
+  @media (min-width: 1367px) {
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+  }
+  &:hover {
+    color: ${({ theme }) => theme.colors.app.sections.chatting.me.text};
+  }
 `;
 
 const MessageContent = styled.p<StyledTheme>`
