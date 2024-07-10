@@ -51,14 +51,14 @@ const GlobalStyle = createGlobalStyle`
               font-size: ${({ theme }) => theme.fontSizes.medium};
         }
     }
-        ::-webkit-scrollbar {
-        width: 0; /* Remove scrollbar width */
-        height: 0; /* Remove scrollbar height */
+
+    ::-webkit-scrollbar {
+        width: 0; 
+        height: 0; 
     }
-::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
         background: transparent; 
     }
-
     ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.2);
         border-radius: 10px;
