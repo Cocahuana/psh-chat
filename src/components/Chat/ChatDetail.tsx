@@ -1,9 +1,10 @@
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { IChat } from "./IChats";
-import dataFetched from "../../../chats.json";
-import { ITheme } from "../../assets/theme/ITheme";
-import { Flex, ScrollableContainer } from "../elements";
+import { IChat, IMessage } from "../../interfaces/IChats";
+import { useChats } from "../../context/ChatContext";
+import { ITheme } from "../../interfaces/ITheme";
+import { Flex } from "../elements";
 import ProfileImage from "../ProfileImage";
 import { FaAngleLeft } from "react-icons/fa";
 import ChatKeyboard from "../ChatKeyboard";
@@ -19,7 +20,6 @@ type ChatDetailProps = {
 
 const ChatDetailContainer = styled.div`
   height: 100%;
-  padding-bottom: 5rem;
 `;
 
 const ChatName = styled.h3<StyledTheme>`
@@ -53,17 +53,56 @@ const ChatHeader = styled(Flex)<StyledTheme>`
   background-color: ${({ theme }) => theme.colors.app.sections.chatting.header};
   padding: 2rem;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+`;
+
+const ScrollableChatContainer = styled.div`
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  height: calc(100% - 7rem); // Adjust height to account for header and footer
+  overflow-y: auto;
 `;
 
 function ChatDetail(props: ChatDetailProps) {
   const { id } = useParams<{ id: string }>();
   const { handleBackClick } = props;
-  const chat: IChat | undefined = dataFetched.chats.find(
-    (chat) => chat.id === id
-  );
+  const { chats, addMessageToChat } = useChats();
+  const [scrollToBottom, setScrollToBottom] = useState(true); // State to trigger scroll to bottom
+  const chatContainerRef = useRef<HTMLDivElement>(null); // Ref to the chat container
+
+  const chat: IChat | undefined = chats.find((chat: IChat) => chat.id === id);
+
+  const handleSendMessage = (messageContent: string) => {
+    const formattedTime = new Date().toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    const newMessage: IMessage = {
+      from: "Me", // <-- it should be a uuid xD
+      time: formattedTime,
+      date: new Date().toLocaleDateString(),
+      content: messageContent,
+    };
+    if (id) {
+      addMessageToChat(id, newMessage);
+      setScrollToBottom(true); // Set state to true to trigger scroll to bottom
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to bottom when scrollToBottom state is true
+    if (scrollToBottom && chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+      setScrollToBottom(false); // Reset state after scrolling
+    }
+  }, [chats, scrollToBottom]);
 
   if (!chat) {
-    return <div>Sé el primero en iniciar una conversación!</div>;
+    return <div>Be the first to start this conversation!</div>;
   }
 
   return (
@@ -76,21 +115,21 @@ function ChatDetail(props: ChatDetailProps) {
           width="5rem"
           height="5rem"
           src={chat.photo}
-          alt={`${chat.name} + Profile image`}
+          alt={`${chat.name} Profile image`}
         />
         <Flex style={{ flexDirection: "column" }}>
           <ChatName>{chat.name}</ChatName>
           <Position>{chat.position}</Position>
         </Flex>
       </ChatHeader>
-      <ScrollableContainer>
+      <ScrollableChatContainer ref={chatContainerRef}>
         <Flex style={{ flexDirection: "column", gap: "1rem" }}>
           {chat.messages.map((message, index) => (
             <Message key={index} message={message} chat={chat} />
           ))}
         </Flex>
-      </ScrollableContainer>
-      <ChatKeyboard />
+      </ScrollableChatContainer>
+      <ChatKeyboard onSend={handleSendMessage} />
     </ChatDetailContainer>
   );
 }

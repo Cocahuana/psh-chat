@@ -51,7 +51,18 @@ const GlobalStyle = createGlobalStyle`
               font-size: ${({ theme }) => theme.fontSizes.medium};
         }
     }
+        ::-webkit-scrollbar {
+        width: 0; /* Remove scrollbar width */
+        height: 0; /* Remove scrollbar height */
+    }
+::-webkit-scrollbar-track {
+        background: transparent; 
+    }
 
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
 `;
 
 export default GlobalStyle;

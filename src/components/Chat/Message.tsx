@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { ITheme } from "../../assets/theme/ITheme";
-import { IChat, IMessage } from "./IChats";
+import { ITheme } from "../../interfaces/ITheme";
+import { IChat, IMessage } from "../../interfaces/IChats";
 import ProfileImage from "../ProfileImage";
 import { Flex } from "../elements";
 
@@ -28,7 +28,7 @@ const MessageBubble = styled.div<StyledTheme>`
       ? theme.colors.app.sections.chatting.me.text
       : theme.colors.app.sections.chatting.they.text};
   border-radius: 0.5rem;
-  padding: 10px;
+  padding: 0.9rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -68,14 +68,24 @@ const HyperLink = styled.a<StyledTheme>`
   text-decoration: underline;
 `;
 
-const MessageContent = styled.span<StyledTheme>`
-  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+const MessageContent = styled.p<StyledTheme>`
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
+  font-size: ${({ theme }) => theme.fontSizes.ultraSmall};
+  @media (min-width: 481px) and (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
+  @media (min-width: 769px) and (max-width: 1366px) {
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+  }
+  @media (min-width: 1367px) {
+    font-size: ${({ theme }) => theme.fontSizes.large};
+  }
 `;
 
 const MessageAndTime = styled(Flex)`
   flex-direction: column;
-  max-width: 70%;
 `;
 
 type MessageProps = {
@@ -113,6 +123,7 @@ const Message = (props: MessageProps) => {
       <Flex
         style={{
           flexDirection: "column",
+          width: "auto",
           maxWidth: "70%",
           gap: "0.2rem",
         }}
@@ -121,16 +132,17 @@ const Message = (props: MessageProps) => {
           style={{
             flexDirection: isMe ? "row-reverse" : "row",
             justifyContent: isMe ? "flex-end" : "flex-start",
-            alignItems: "center",
             gap: "1rem",
           }}
         >
-          <ProfileImage
-            width="3rem"
-            height="3rem"
-            src={isMe ? "/avatar-4.png" : chat.photo}
-            alt={`${chat.name}`}
-          />
+          <div style={{ marginTop: "1rem" }}>
+            <ProfileImage
+              width="3rem"
+              height="3rem"
+              src={isMe ? "/avatar-4.png" : chat.photo}
+              alt={`${chat.name}`}
+            />
+          </div>
           <MessageAndTime>
             <Flex style={{ justifyContent: isMe ? "flex-start" : "flex-end" }}>
               <MessageTime from={message.from}>{message.time}</MessageTime>

@@ -1,0 +1,89 @@
+{
+    "chats": [
+      {
+        "id": "abc1",
+        "name": "Luciana Gutierrez",
+        "position": "HR Lead Recruiter",
+        "photo": "/avatar-2.png",
+        "messages": [
+          {
+            "from": "Luciana Gutierrez",
+            "time": "8:43 AM",
+            "date": "08/07/2024",
+            "content": "Es lo que me dijeron..."
+          },
+          {
+            "from": "Me",
+            "time": "10:07 AM",
+            "date": "08/07/2024",
+            "content": "Ahh dale, no sabía que era así"
+          },
+          {
+            "from": "Micaela Alvarez",
+            "time": "10:20 AM",
+            "date": "08/07/2024",
+            "content": "Si tengo alguna otra novedad te comento. Gracias!"
+          }
+        ]
+      },
+      {
+        "id": "abc2",
+        "name": "Micaela Alvarez",
+        "position": "Marketing Manager",
+        "photo": "/avatar-1.png",
+        "messages": [
+          {
+            "from": "Micaela Alvarez",
+            "time": "9:45 AM",
+            "date": "08/07/2024",
+            "content": "Hola John! Entre qué horarios podrías hoy tener la meeting?"
+          },
+          {
+            "from": "Me",
+            "time": "10:05 AM",
+            "date": "08/07/2024",
+            "content": "Hola Micaela! Muy bien. Yo puedo de 10 a 17hs."
+          },
+          {
+            "from": "Micaela Alvarez",
+            "time": "10:15 AM",
+            "date": "08/07/2024",
+            "content": "Dale, agende la meeting para hoy a las 14hs."
+          }
+        ]
+      },
+      {
+        "id": "abc3",
+        "name": "Manuel Hoffmann",
+        "position": "SR Backend Developer",
+        "photo": "/avatar-3.png",
+        "messages": [
+          {
+            "from": "Manuel Hoffmann",
+            "time": "10:32 AM",
+            "date": "07/07/2024",
+            "content": "Buen dia Juan"
+          },
+          {
+            "from": "Manuel Hoffmann",
+            "time": "10:33 AM",
+            "date": "07/07/2024",
+            "content": "Tengo una posicion que podria interesarte: https://sites.google.com/wearepsh.com/pshrecruiting/inicio"
+          },
+          {
+            "from": "Me",
+            "time": "5:12 PM",
+            "date": "07/07/2024",
+            "content": "Te pusiste la 10 Manu!. Ya mismo voy a aplicar, te agradezco por el aviso!"
+          },
+          {
+            "from": "Manuel Hoffmann",
+            "time": "9:37 AM",
+            "date": "08/07/2024",
+            "content": "Gracias a vos!"
+          }
+        ]
+      }
+    ]
+  }
+  

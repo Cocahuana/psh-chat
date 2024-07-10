@@ -1,4 +1,3 @@
-// theme.ts
 export interface ITheme {
     colors: {
         gray?: {

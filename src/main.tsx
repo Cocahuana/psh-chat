@@ -5,14 +5,16 @@ import { ThemeProvider } from "styled-components";
 import theme from "./assets/theme/theme.ts";
 import GlobalStyle from "./assets/theme/globalStyles.ts";
 import Router from "./components/Router.tsx";
-
+import { ChatProvider } from "./context/ChatContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </ThemeProvider>
+    <ChatProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </ThemeProvider>
+    </ChatProvider>
   </React.StrictMode>
 );
