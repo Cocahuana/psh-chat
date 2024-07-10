@@ -11,7 +11,7 @@ import { useChats } from "./context/ChatContext";
 import { ITheme } from "./interfaces/ITheme";
 
 type ChatsSectionProps = {
-  isChatSelected: boolean;
+  isChatSelected?: boolean;
   theme: ITheme;
 };
 
@@ -65,6 +65,77 @@ const BackgroundColor = styled.div`
   overflow-y: hidden;
 `;
 
+const FirstPageLoadBg = styled.div<ChatsSectionProps>`
+  display: ${({ isChatSelected }) => (isChatSelected ? "block" : "none")};
+
+  background-color: ${({ theme }) => theme.colors.app.sections.chats.bg};
+  flex: 1;
+  background-color: ${({ theme }) => theme.colors.app.sections.chatting.bg};
+  overflow-y: auto;
+
+  @media (max-width: 767px) {
+    max-width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 60%;
+    display: block;
+  }
+`;
+
+const NoConversationsBgWrapper = styled(Flex)`
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  @media (min-width: 767px) {
+    padding: 1rem;
+  }
+  @media (min-width: 1023px) {
+    width: 100%;
+    font-size: ${({ theme }) => theme.fontSizes.large};
+  }
+`;
+
+const NoConversationsTextContainer = styled(Flex)<ChatsSectionProps>`
+  background-color: ${({ theme }) => theme.colors.app.sections.chatting.header};
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  h2,
+  p {
+    color: ${({ theme }) => theme.colors.app.sections.chatting.me.text};
+  }
+  h2 {
+    font-weight: bold;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+
+  @media (min-width: 1023px) {
+    width: 60%;
+    font-size: ${({ theme }) => theme.fontSizes.large};
+  }
+  text-align: center;
+  border-radius: 20px;
+`;
+
+const LogoBg = styled.div<ChatsSectionProps>`
+  border-radius: 20px;
+  @media (max-width: 767px) {
+    width: 50%;
+  }
+
+  @media (min-width: 1023px) {
+    width: 30%;
+    font-size: ${({ theme }) => theme.fontSizes.large};
+  }
+`;
+
 const App: React.FC = () => {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
@@ -103,9 +174,30 @@ const App: React.FC = () => {
           </Flex>
         </ChatsSection>
 
-        <ChattingSection isChatSelected={isChatSelected}>
-          <ChatDetail handleBackClick={handleBackClick} />
-        </ChattingSection>
+        {isChatSelected ? (
+          <ChattingSection isChatSelected={isChatSelected}>
+            <ChatDetail handleBackClick={handleBackClick} />
+          </ChattingSection>
+        ) : (
+          <FirstPageLoadBg>
+            <NoConversationsBgWrapper>
+              <LogoBg>
+                <img
+                  width={"100%"}
+                  height={"100%"}
+                  src={"/PSh Logo_WHITE.svg"}
+                  alt={"PSH Logo"}
+                />
+              </LogoBg>
+              <NoConversationsTextContainer>
+                <h2>Welcome to PSH React Chat!</h2>
+                <p>
+                  Choose a chat or create a new one to start a conversation!
+                </p>
+              </NoConversationsTextContainer>
+            </NoConversationsBgWrapper>
+          </FirstPageLoadBg>
+        )}
       </Container>
     </BackgroundColor>
   );
