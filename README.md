@@ -1,6 +1,6 @@
-# PSH Chat
+# PSH Chat Challenge
 
-PSH Chat is a modern web application for real-time messaging built with React, TypeScript, and Firebase. This project uses Vite for development and build tooling, along with styled-components for styling.
+PSH Chat was a challenge for the PSH company (https://wearepsh.com/) is a modern web application for real-time messaging built with React, TypeScript, and Firebase. This project uses Vite for development and build tooling, along with styled-components for styling.
 
 ## Table of Contents
 
